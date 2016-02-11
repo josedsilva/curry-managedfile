@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="curry" package="common" defaultIdMethod="native">
+
+	<table name="managedfile">
+		<column name="fid" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="filepath" type="VARCHAR" size="255" required="true" primaryString="true" />
+		<column name="type" type="CHAR" size="1" required="true" />
+		<column name="filemime" type="VARCHAR" size="255" />
+		<column name="deleted" type="BOOLEAN" defaultValue="false" />
+		<column name="owner_id" type="INTEGER" />
+		<foreign-key foreignTable="user" phpName="Owner" refPhpName="ManagedfileOwner" onDelete='setnull' onUpdate="cascade">
+			<reference local="owner_id" foreign="user_id" />
+		</foreign-key>
+		
+		<column name="permission" type="CHAR" size="3" required="true" defaultValue="333" />
+		
+		<behavior name="timestampable" />
+		<unique>
+			<unique-column name="filepath" />
+		</unique>
+	</table>
+
+</database>
